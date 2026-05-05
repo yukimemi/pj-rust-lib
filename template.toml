@@ -1,0 +1,41 @@
+name = "pj-rust-lib"
+version = "0.1.0"
+
+# Rust library extras. Sits ABOVE pj-rust in the compose order, so
+# its files override pj-rust's on conflict (pj-rust's CI matrix is
+# the baseline; this layer adds a publish-aware release pipeline
+# that ships notes only — binaries don't make sense for libraries
+# whose canonical artifact is the crates.io tarball).
+
+[[file]]
+src = ".editorconfig"
+how = "overwrite"
+when = "once"
+
+# Library-layer agent guidance — release flow notes (cargo publish
+# + GH Release notes, no cross-compile), MSRV / SemVer hints,
+# `package.publish = false` opt-out for internal-only crates.
+# Lives in its own marker block so pj-base's language-agnostic
+# block and pj-rust's Rust-language block stay untouched in the
+# same AGENTS.md.
+[[file]]
+src = "AGENTS.md.rust-lib"
+dst = "AGENTS.md"
+how = "merge-section"
+when = "always"
+marker = { begin = "<!-- kata:agents:rust-lib:begin -->", end = "<!-- kata:agents:rust-lib:end -->" }
+
+# Tag-driven release pipeline: cargo publish + a GitHub release
+# with auto-generated notes (no binary attach — libraries' build
+# artifacts go to crates.io, the GH release page is just for
+# historical visibility / Renovate's release-notes manager).
+# `.template` suffix keeps GitHub Actions from auto-running the
+# source inside this repo. `when = "once"` (not always) so each
+# consumer PJ can drop the publish job, swap the version-tag glob,
+# or otherwise adapt the pipeline without `kata apply` reverting
+# the change.
+[[file]]
+src = ".github/workflows/release.yml.template"
+dst = ".github/workflows/release.yml"
+how = "overwrite"
+when = "once"
