@@ -1,7 +1,7 @@
 # pj-rust-lib
 
-`kata` template layer for Rust **library** crates under
-yukimemi/*. Sits ABOVE [`yukimemi/pj-rust`](https://github.com/yukimemi/pj-rust)
+`kata` template layer for Rust **library** crates.
+Sits ABOVE [`yukimemi/pj-rust`](https://github.com/yukimemi/pj-rust)
 under [`yukimemi/pj-base`](https://github.com/yukimemi/pj-base) in
 the compose order; `pj-rust`'s CI matrix and tooling are the
 baseline, this layer adds:

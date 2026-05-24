@@ -48,7 +48,7 @@ bumping:
   crates but raises the MSRV ceiling for library downstreams
   more than necessary. If a downstream of this library
   complains, override locally with `rangeStrategy: "replace"`
-  (and consider whether the broader yukimemi/* default should
+  (and consider whether the broader template default should
   flip — track upstream).
 
 ### `cargo publish --dry-run`
